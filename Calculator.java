@@ -3,7 +3,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Calculator {
-                static  int[]  arabic =   { 1,  4,   5,   9,  10, 40, 50,  90, 100};
+                static  int[]  arabic = { 1,  4,   5,   9,  10, 40, 50,  90, 100};
                 static String[] roman = {"I","IV","V","IX","X","XL","L","XC","C"};
 
              public static String convert(int num ){
@@ -53,6 +53,58 @@ public class Calculator {
                     return true;
                      else return false;
              }
+                public static String calc(String input){
+                    boolean calcstate=false;
+                    String[] parts = input.split("\\s+");
+                    if (isArabic(parts[0].charAt(0)) && isArabic(parts[2].charAt(0))) {
+                        calcstate=true;
+                    }
+
+                    int a;
+                    int b;
+                    if (calcstate) {
+                        a = Integer.parseInt(parts[0]);
+                        b = Integer.parseInt(parts[2]);
+                        if ((a<1||a>10)||(b<1||b>10)){
+                            throw new IllegalArgumentException("Invalid number format");
+                        }
+                    }
+                    else {
+
+                        a = romanToArabic.get(parts[0]);
+                        b = romanToArabic.get(parts[2]);
+                        if ((a<1||a>10)||(b<1||b>10)){
+                            throw new IllegalArgumentException("Invalid number format");
+                        }
+                    }
+
+                    int result = 0;
+                    switch (parts[1]) {
+                        case "+":
+                            result = a + b;
+                            break;
+                        case "-":
+                            result = a - b;
+                            break;
+                        case "/":
+                            result = a / b;
+                            break;
+                        case "*":
+                            result = a * b;
+                            break;
+                    }
+                    if(parts[1]!="+"&&parts[1]!="-"&&parts[1]!="/"&&parts[1]!="*"){
+                        throw new IllegalArgumentException("Invalid symbol format");
+                    }
+                    if (!calcstate){
+                        if (result<=0) throw new IllegalArgumentException("Invalid result");
+                        return convert(result);
+
+                    }
+                    return Integer.toString(result);
+                }
+
+
             public static void main(String[] args) {
               boolean calcstate=false;
                 Scanner sc = new Scanner(System.in);
@@ -65,41 +117,8 @@ public class Calculator {
                 if (isArabic(parts[0].charAt(0)) != isArabic(parts[2].charAt(0))) {
                     throw new IllegalArgumentException("Invalid number format");
                 }
-                if (isArabic(parts[0].charAt(0)) && isArabic(parts[2].charAt(0))) {
-                 calcstate=true;
-                }
+                System.out.println(calc(input));
 
-                int a;
-                int b;
-                if (calcstate) {
-                     a = Integer.parseInt(parts[0]);
-                      b = Integer.parseInt(parts[2]);
-                }
-                else {
-                     a = romanToArabic.get(parts[0]);
-                      b = romanToArabic.get(parts[2]);
-                }
-
-                int result = 0;
-                switch (parts[1]) {
-                    case "+":
-                        result = a + b;
-                        break;
-                    case "-":
-                        result = a - b;
-                        break;
-                    case "/":
-                        result = a / b;
-                        break;
-                    case "*":
-                        result = a * b;
-                        break;
-                }
-                if (!calcstate){
-                    System.out.println(convert(result));
-
-                }
-                else System.out.println(result);
             }
 
         }

@@ -84,22 +84,22 @@ public class Calculator {
 
             case "+":
                 result = a + b;
-                System.out.println(a + " + " + b + " = " + result);
+                System.out.println(a + " + " + b + " = ");
                 break;
 
             case "-":
                 result = a - b;
-                System.out.println(a + " - " + b + " = " + result);
+                System.out.println(a + " - " + b + " = ");
                 break;
 
             case "*":
                 result = a * b;
-                System.out.println(a + " * " + b + " = " + result);
+                System.out.println(a + " * " + b + " = ");
                 break;
 
             case "/":
                 result = a / b;
-                System.out.println(a + " / " + b + " = " + result);
+                System.out.println(a + " / " + b + " = ");
                 break;
 
             default:
